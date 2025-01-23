@@ -7,10 +7,10 @@ function App() {
   const  [principle, setPrinciple] = useState("")
   const [rate, setRate] = useState("")
   const [year, setYear] = useState("")
-  const[isPrinciple, setIsPrinciple] = useState(true)
-  const[isRate, setIsRate] = useState(true)
-  const[isYear, setIsYear] = useState(true)
-  const[interest, setInterest]= useState(0)
+  const [isPrinciple, setIsPrinciple] = useState(true)
+  const [isRate, setIsRate] = useState(true)
+  const [isYear, setIsYear] = useState(true)
+  const [interest, setInterest]= useState(0)
 
 
   const validate=(e)=>{
@@ -23,22 +23,22 @@ function App() {
 
   //  console.log(value.match('^[0-9]*$'));
   if(!!value.match('^[0-9]*$')){
-    if(name=="priciple"){
+    if(name == "principle"){
       setPrinciple(value)
       setIsPrinciple(true)
-    }else if(name == "rate"){
+    }else if (name == "rate"){
       setRate(value)
       setIsRate(true)
-    }else{
+    } else {
       setYear(value)
       setIsYear(true)
     }
     
-  }else{
-    if(name=="priciple"){
+  } else {
+    if(name == "principle"){
       setPrinciple(value)
       setIsPrinciple(false)
-    }else if(name == "rate"){
+    } else if (name == "rate"){
       setRate(value)
       setIsRate(false)
     }else{
@@ -61,8 +61,6 @@ function App() {
 
   const calculate = () =>{
     setInterest((principle*rate*year)/100)
-
-
   }
 
   return (
@@ -76,24 +74,25 @@ function App() {
             Calculate your simple interest Easily
           </p>
           <div className='bg-warning p-3 mt-4 d-flex rounded flex-column text-center'>
-            <h1 className='mt-3 '>₹ 1000</h1>
+            <h1 className='mt-3 '>₹{interest}</h1>
             <p>Total simple interest</p>
 
           </div>
           <div className='my-3'>
-          <TextField onChange={(e)=>validate(e)} name='principle' id="filled-basic" label="Principle Amount" variant="filled" className='w-100' />
-            {isPrinciple == false &&<p className='text-danger'>*Invalid Input</p>}
+          <TextField value={principle} onChange={(e)=>validate(e)} name='principle' id="filled-basic" label="Principle Amount" variant="filled" className='w-100' />
+            {isPrinciple == false && <p className='text-danger'>*Invalid Input</p>}
           </div>
           <div className='mb-3'>
-          <TextField onChange={(e)=>validate(e)} name='rate' id="filled-basic" label="Rate of Interest ( % )" variant="filled" className='w-100' />
+          <TextField value={rate} onChange={(e)=>validate(e)} name='rate' id="filled-basic" label="Rate of Interest ( % )" variant="filled" className='w-100' />
             {isRate == false &&<p className='text-danger'>*Invalid Input</p>}
           </div>
           <div className='mb-3'>
-          <TextField onChange={(e)=>validate(e)}  name='year' id="filled-basic" label="Year" variant="filled" className='w-100' />
+          <TextField value={year} onChange={(e)=>validate(e)}  name='year' id="filled-basic" label="Year" variant="filled" className='w-100' />
           {isYear == false && <p className='text-danger'>*Invalid Input</p>}
           </div>
           <div className='d-flex justify-content-between'>
-          <Button onClick={calculate} variant="contained" color="success" size="large">Calculate</Button>
+          <Button disabled = {isPrinciple && isRate && isYear? false : true }
+          onClick={calculate} variant="contained" color="success" size="large">Calculate</Button>
           <Button onClick={handleReset}  variant="outlined" color="success" size="large">Reset</Button>
           </div>
 
